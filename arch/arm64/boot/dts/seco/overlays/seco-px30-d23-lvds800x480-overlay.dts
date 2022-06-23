@@ -1,0 +1,105 @@
+/*
+ * Copyright 2020 SECO
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/clock/px30-cru.h>
+#include <dt-bindings/display/media-bus-format.h>
+
+/ {
+	model = "Seco D23 PX30 - LVDS 800x480 video output";
+	compatible = "rockchip,seco-px30-d23", "rockchip,px30", "rockchip,linux", "rockchip,rk3326";
+
+/*  __________________________________________________________________________
+ * |                                                                          |
+ * |                                LVDS		                        |
+ * |__________________________________________________________________________|
+ */
+
+	fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			chosen {
+				bootargs = "swiotlb=1 console=ttyFIQ0 rw rootwait board_revC-LVDS800";
+			};
+
+			backlight: backlight {
+				compatible = "pwm-backlight";
+				pwms = <&pwm1 0 1000000 0>;
+			};
+
+			panel_lvds {
+				bus-format = <MEDIA_BUS_FMT_RGB888_1X7X4_JEIDA>;
+				display-timings {
+					native-mode = <&timing0>;
+
+					timing0: timing0 {
+						clock-frequency = <33000000>;
+						hactive = <800>;
+						vactive = <480>;
+						hback-porch = <30>;
+						hfront-porch = <30>;
+						vback-porch = <10>;
+						vfront-porch = <10>;
+						hsync-len = <30>;
+						vsync-len = <10>;
+						hsync-active = <0>;
+						vsync-active = <0>;
+						de-active = <0>;
+						pixelclk-active = <0>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&lvds>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@2 {
+		target = <&lvds_in_vopb>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@3 {
+		target = <&vopl>;
+		__overlay__ {
+			status = "okay";
+			assigned-clocks = <&cru PLL_NPLL>;
+			assigned-clock-rates = <1188000000>;
+		};
+	};
+
+	fragment@4 {
+		target = <&video_phy>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@5 {
+		target = <&route_lvds>;
+		__overlay__ {
+			connect = <&vopl_out_lvds>;
+			status = "okay";
+		};
+	};
+};
