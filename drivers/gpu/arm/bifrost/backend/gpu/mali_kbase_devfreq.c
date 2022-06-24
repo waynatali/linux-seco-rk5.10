@@ -174,8 +174,8 @@ int kbase_devfreq_opp_helper(struct dev_pm_set_opp_data *data)
 	/* Scaling up? Scale voltage before frequency */
 	if (new_freq >= old_freq) {
 		if (mem_reg == NULL) {
-			dev_err(dev, "No mem reg in opp-table. Number of regulators %d. Failed to set volt %lu uV for mem reg\n",
-				data->regulator_count, new_supply_mem->u_volt);
+			dev_err(dev, "No mem reg in opp-table. Number of regulators %d.\n",
+				data->regulator_count);
 		} else {
 			ret = regulator_set_voltage(mem_reg, new_supply_mem->u_volt,
 					    INT_MAX);
@@ -217,8 +217,8 @@ int kbase_devfreq_opp_helper(struct dev_pm_set_opp_data *data)
 			goto restore_freq;
 		}
 		if (mem_reg == NULL) {
-			dev_err(dev, "No mem reg in opp-table. Number of regulators %d. Failed to set volt %lu uV for mem reg\n",
-				data->regulator_count, new_supply_mem->u_volt);
+			dev_err(dev, "No mem reg in opp-table. Number of regulators %d.\n",
+				data->regulator_count);
 		} else {
 			ret = regulator_set_voltage(mem_reg, new_supply_mem->u_volt,
 					    INT_MAX);
