@@ -13,8 +13,8 @@
 
 / {
 	aliases {
-        	mmc0 = &emmc;
-        	mmc1 = &sdmmc;
+		mmc0 = &emmc;
+		mmc1 = &sdmmc;
 	};
 
 	fiq-debugger {
@@ -143,10 +143,10 @@
 
 	vdd_m2_enabler: en_vdd-m2 {
 		compatible = "reg-userspace-consumer";
-        	regulator-name = "en_vdd-m2";
-        	regulator-supplies = "vdd_m2";
-        	vdd_m2-supply = <&vdd_m2>;
-        	regulator-boot-on;
+		regulator-name = "en_vdd-m2";
+		regulator-supplies = "vdd_m2";
+		vdd_m2-supply = <&vdd_m2>;
+		regulator-boot-on;
 	};
 
 	reg_1p8v_enabler: reg_1p8v_enabler {
@@ -740,7 +740,7 @@
 
 &pinctrl {
 	pinctrl-names = "default";
-	/*pinctrl-0 = <&secod23_gpioset>;*/
+	pinctrl-0 = <&secod23_gpioset>;
 
 	pmic {
 		pmic_int: pmic_int {
@@ -780,7 +780,7 @@
 	};
 
 	lcd_vdd_gpio {
-        	lcd_vdd_gpio_en: lcd_vdd_gpio_en {
+		lcd_vdd_gpio_en: lcd_vdd_gpio_en {
 			rockchip,pins = <3 RK_PA4 RK_FUNC_GPIO &pcfg_pull_up>;
 		};
 	};
@@ -788,6 +788,17 @@
 	px30_lanxus_gpioset{
 		lanxus_gpioset: lanxus-gpioset {
 			rockchip,pins = <3 RK_PA6 RK_FUNC_GPIO &pcfg_output_high>;
+		};
+	};
+
+	secod23_gpio {
+		secod23_gpioset: secod23-gpioset {
+			rockchip,pins =
+                <0 RK_PA0 RK_FUNC_GPIO &pcfg_output_high>,       /* 1P8V_RUN_EN */
+                <0 RK_PA1 RK_FUNC_GPIO &pcfg_output_high>,       /* M2_SDIO_WAKE */
+                <0 RK_PC1 RK_FUNC_GPIO &pcfg_output_high>,       /* M2_UART_WAKE */
+                <1 RK_PB0 RK_FUNC_GPIO &pcfg_output_high>,       /* +3V3_MOD_EN */
+                <0 RK_PC4 RK_FUNC_1    &pcfg_output_high>;       /* CLKOUT_32K */
 		};
 	};
 };
