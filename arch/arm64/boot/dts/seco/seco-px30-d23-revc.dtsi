@@ -170,7 +170,8 @@
 
 	sdio_pwrseq: sdio-pwrseq {
 		compatible = "mmc-pwrseq-simple";
-
+		clocks = <&rk809 1>;
+		clock-names = "ext_clock";
 		/*
 		 * On the module itself this is one of these (depending
 		 * on the actual card populated):
