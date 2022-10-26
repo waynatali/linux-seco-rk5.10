@@ -690,6 +690,12 @@
 
 &uart1 {
 	status = "okay";
+	bluetooth {
+		compatible = "brcm,bcm4345c5";
+		clocks = <&rk809 1>;
+		clock-names = "lpo";
+		host-wakeup-gpios = <&gpio0 RK_PC1 GPIO_ACTIVE_HIGH>;
+	};
 };
 
 /*uart2 debug change to uart2m1*/
