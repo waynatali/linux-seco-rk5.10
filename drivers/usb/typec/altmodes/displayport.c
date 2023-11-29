@@ -545,6 +545,9 @@ int dp_altmode_probe(struct typec_altmode *alt)
 	struct dp_altmode *dp;
 	int ret;
 
+	if (!port)
+		return -ENODEV;
+
 	/* FIXME: Port can only be DFP_U. */
 
 	/* Make sure we have compatiple pin configurations */
